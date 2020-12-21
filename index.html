@@ -1,11 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expense App</title>
-</head>
-<body>
-    <h1>Xpense</h1>
-</body>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <h1>Xpense</h1> -->
+    <h1 id="initValue"></h1>
+    <div>
+        <input id="inputTxt" type="text" />
+        <button id="elementBtn">+</button>
+    </div>
+    <script>
+      // init totalExpense to 0
+      var totalExpense = 0;
+
+      const headingElement = document.querySelector("#initValue");
+      headingElement.textContent = totalExpense;
+      function addAmount() {
+        //read value from input
+        const inputValue = inputAmount.value;
+        //convert it to num
+        const inputNum = parseInt(inputValue);
+        // add it to total expense
+        totalExpense += inputNum;
+        headingElement.innerText = totalExpense;
+      }
+
+      //get btn input reference
+      const addBtn = document.querySelector("#elementBtn");
+      const inputAmount = document.querySelector("#inputTxt");
+
+      addBtn.addEventListener("click", addAmount);
+    </script>
+  </body>
 </html>
