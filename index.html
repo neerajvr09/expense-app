@@ -15,31 +15,61 @@
     </style>
   </head>
   <body>
-    <!-- <h1>Xpense</h1> -->
     <h1 id="initValue"></h1>
     <div>
-        <input id="inputTxt" type="text" />
-        <button id="elementBtn">+</button>
+      <label for="inputAmt">Amount : </label>
+      <input id="inputAmt" type="text" />
     </div>
+    <div>
+      <label for="inputDesc">Spent On : </label>
+      <input id="inputDesc" type="text" />
+    </div>
+
+    <button id="elementBtn">+</button>
+    <div id="expenseTable"></div>
     <script>
+      //get btn input desc heading and table reference
+      const addBtn = document.querySelector("#elementBtn");
+      const inputAmount = document.querySelector("#inputAmt");
+      const descEl = document.querySelector("#inputDesc");
+      const headingElement = document.querySelector("#initValue");
+      const expenseTableEl = document.querySelector("#expenseTable");
+
       // init totalExpense to 0
       var totalExpense = 0;
 
-      const headingElement = document.querySelector("#initValue");
-      headingElement.textContent = totalExpense;
+      //array to store data object
+      const allExpensesArr = [];
+
+      headingElement.textContent = `Total : ${totalExpense}`;
+
       function addAmount() {
+        //object to store amount and desc
+        const allExpensesObj = {};
+
         //read value from input
         const inputValue = inputAmount.value;
+
         //convert it to num
         const inputNum = parseInt(inputValue);
+
         // add it to total expense
         totalExpense += inputNum;
-        headingElement.innerText = totalExpense;
-      }
 
-      //get btn input reference
-      const addBtn = document.querySelector("#elementBtn");
-      const inputAmount = document.querySelector("#inputTxt");
+        // amount and desc value in object
+        allExpensesObj.amount = totalExpense;
+        allExpensesObj.desc = descEl.value;
+
+        allExpensesArr.push(allExpensesObj);
+
+        const allExpenseTable = allExpensesArr.map((expense) => {
+          return `<div>${expense.amount} :: ${expense.desc}</div>`;
+        }).join("");
+       
+        expenseTableEl.innerHTML = allExpenseTable;
+
+        headingElement.textContent = `Total : ${totalExpense}`;
+      }
 
       addBtn.addEventListener("click", addAmount);
     </script>
