@@ -16,6 +16,7 @@
 <body>
   <nav class="navbar navbar-dark bg-dark">
     <span class="navbar-brand mb-0 h1">Xpers</span>
+    <span class="navbar-brand mb-0 h1" id="totalValue">Total : 0</span>
   </nav>
 
   <div class="container-fluid bg-light" style="min-height: 100vh">
@@ -47,6 +48,7 @@
 
   <script>
     //get heading btn input desc and table reference
+    const headingEl = document.querySelector("#totalValue");
     const addBtn = document.querySelector("#elementBtn");
     const inputAmount = document.querySelector("#inputAmt");
     const descEl = document.querySelector("#inputDesc");
@@ -54,6 +56,8 @@
 
     // init totalExpense to 0
     var totalExpense = 0;
+
+    headingEl.textContent = "Total : " + totalExpense;
 
     //array to store data object
     let allExpensesArr = [];
@@ -128,6 +132,7 @@
       totalExpense = totalExpense + inputNum;
 
       renderList(allExpensesArr);
+      headingEl.textContent = "Total : " + totalExpense;
     }
 
     // add event listner
