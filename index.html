@@ -16,7 +16,6 @@
 <body>
   <nav class="navbar navbar-dark bg-dark">
     <span class="navbar-brand mb-0 h1">Xpers</span>
-    <span class="navbar-brand mb-0 h1" id="initValue"></span>
   </nav>
 
   <div class="container-fluid bg-light" style="min-height: 100vh">
@@ -48,7 +47,6 @@
 
   <script>
     //get heading btn input desc and table reference
-    const headingElement = document.querySelector("#initValue");
     const addBtn = document.querySelector("#elementBtn");
     const inputAmount = document.querySelector("#inputAmt");
     const descEl = document.querySelector("#inputDesc");
@@ -59,8 +57,6 @@
 
     //array to store data object
     let allExpensesArr = [];
-
-    headingElement.textContent = totalExpense;
 
     // Get Date String
 			function getDateString(moment) {
@@ -73,11 +69,12 @@
 
       //delete item
      function deleteItem(dateValue) {
-      const newArr = allExpensesArr.filter(expenses=> {
-        if(expenses.moment.valueOf()!== dateValue){
-          return expenses
+      const newArr = [];
+      for(let i=0; i<allExpensesArr.length;i++){
+        if(allExpensesArr[i].moment.valueOf() !== dateValue){
+          newArr.push(allExpensesArr[i]);;
         }
-      });
+      }
       allExpensesArr = newArr;
       renderList(newArr)
 		}
@@ -118,20 +115,19 @@
       const inputValue = inputAmount.value;
 
       //convert it to num
-      const inputNum = parseInt(inputValue);
-
-      // add it to total expense
-      totalExpense += inputNum;
+      const inputNum = parseInt(inputValue, 10);
 
       // amount and desc value in object
-      allExpensesObj.amount = totalExpense;
+      allExpensesObj.amount = inputNum;
       allExpensesObj.desc = descEl.value;
       allExpensesObj.moment = new Date();
 
       allExpensesArr.push(allExpensesObj);
 
+      // add it to total expense
+      totalExpense = totalExpense + inputNum;
+
       renderList(allExpensesArr);
-      headingElement.textContent = totalExpense;
     }
 
     // add event listner
